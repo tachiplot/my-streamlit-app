@@ -17,7 +17,7 @@ st.markdown("基本給・各種手当設定や創出粗利額、歩合還元率�
 st.sidebar.header("⚙️ 基本条件設定")
 
 base_salary = st.sidebar.number_input("基本給 (円)", value=206200, step=1000, help="ジャンクス・便利屋共通基本給")
-standard_pay = st.sidebar.number_input("標準型 月給目安 (円)", value=271200, step=1000, help="3等級リーダー・資格1つ保有時の標準型給与")
+standard_pay = st.sidebar.number_input("標準型 月給目安 (円)", value=271200, step=1000, help="3等級リーダー・資格保有時の標準型給与")
 
 st.sidebar.markdown("---")
 st.sidebar.header("📈 モデル1：累進歩合型 設定")
