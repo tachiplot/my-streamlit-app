@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 st.set_page_config(
-    page_title="歩合給制度 シミュレーター v3",
+    page_title="歩合給制度 シミュレーター v2",
     page_icon="📊",
     layout="wide"
 )
