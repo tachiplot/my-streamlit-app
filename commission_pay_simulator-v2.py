@@ -3,21 +3,32 @@ import pandas as pd
 import plotly.graph_objects as go
 
 st.set_page_config(
-    page_title="歩合給制度 シミュレーター v2",
+    page_title="歩合給制度 シミュレーター v4",
     page_icon="📊",
     layout="wide"
 )
 
-st.title("📊 3等級以上 選択型歩合給制度 シミュレーター")
-st.markdown("基本給設定、評価指標（**実測粗利・みなし粗利・純利益**）、および歩合還元モデル（**一律還元・超過分利益還元**）を任意に調整してシミュレーションできます。")
+st.title("📊 3等級以上 選択型歩合給制度 シミュレーター v4")
+st.markdown("基本給設定、標準型月給目安、評価指標（**実測粗利・みなし粗利・純利益**）、および歩合還元モデル（**一律還元・超過分利益還元**）を任意に調整してシミュレーションできます。")
 
 # ---------------------------------------------------------
 # サイドバー：1. 基本条件設定
 # ---------------------------------------------------------
 st.sidebar.header("⚙️ 1. 基本給・標準給与設定")
 
-base_salary = st.sidebar.number_input("基本給 (円)", value=206200, step=1000, help="ジャンクス・便利屋共通基本給 (例: 206,200円)")
-standard_pay = st.sidebar.number_input("標準型 月給目安 (円)", value=271200, step=1000, help="3等級リーダー・資格1つ保有時の標準型給与 (例: 271,200円)")
+base_salary = st.sidebar.number_input(
+    "基本給 (円)", 
+    value=206200, 
+    step=1000, 
+    help="ジャンクス・便利屋共通基本給 (例: 206,200円)"
+)
+
+standard_pay = st.sidebar.number_input(
+    "標準型 月給目安 (円)", 
+    value=302200, 
+    step=1000, 
+    help="3等級リーダー・資格有・固定残業代等含む標準型月給 (基本給20.62万+リーダー手当2.0万+通信手当0.5万+資格手当1.0万+能力手当3.0万+固定残業3.1万 = 約30.22万円)"
+)
 
 # ---------------------------------------------------------
 # サイドバー：2. 評価指標の設定
@@ -157,6 +168,8 @@ flat_comm, flat_tot, flat_diff, flat_comp, flat_share = calc_flat_model(target_v
 prog_comm, prog_tot, prog_diff, prog_comp, prog_share = calc_prog_model(target_val, gross_profit)
 
 # 指標サマリー案内表示
+st.caption("※標準型月給目安（3等級リーダー・資格有）：基本給20.62万 ＋ リーダー手当2.0万 ＋ 通信0.5万 ＋ 資格1.0万 ＋ 能力手当3.0万 ＋ 固定残業3.1万 ＝ **約30.22万円**")
+
 if metric_type == "実測粗利":
     st.info(f"📌 **評価対象 (実測粗利)**: **{int(target_val):,} 円** ｜ **標準型 月給目安**: **{int(standard_pay):,} 円** （標準型選択時の会社残存粗利: {int(gross_profit - standard_pay):,} 円）")
 elif metric_type == "みなし粗利 (売上×想定粗利率)":
